@@ -1,0 +1,9 @@
+*.iml
+.idea/
+*.ipr
+*.iws
+/out/
+.idea_modules/
+composer.phar
+vendor/
+composer.lock
