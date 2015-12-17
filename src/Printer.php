@@ -4,7 +4,6 @@ namespace PrettyResultPrinter;
 
 use PHPUnit_Framework_Test;
 use PHPUnit_TextUI_ResultPrinter;
-use PrettyResultPrinter\Exception\InvalidArgumentException;
 
 
 /**
@@ -40,16 +39,24 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
             return;
         }
 
-        if ($this->lastClassName !== $this->className) {
-            echo PHP_EOL;
-            echo $this->formatClassName($this->className);
-            echo "\t";
-
-            $this->lastClassName = $this->className;
-        }
+        $this->printClassName();
 
         $this->printTestCaseStatus($progress);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function writeProgressWithColor($color, $buffer)
+    {
+
+        if ($this->debug) {
+            parent::writeProgressWithColor($color, $buffer);
+        }
+
+        $this->printClassName();
+    }
+
 
     /**
      * @param string $progress Result of the Test Case => . F S I R
@@ -60,15 +67,23 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
 
         switch (strtoupper($progress)) {
             case '.':
-                echo "\033[01;32m" . mb_convert_encoding("\x27\x14", 'UTF-8', 'UTF-16BE') . "\033[0m";
-                return;
+                $color = 'fg-green';
+                $buffer = mb_convert_encoding("\x27\x14", 'UTF-8', 'UTF-16BE');
+                break;
             case 'F':
-                echo "\033[01;31m" . mb_convert_encoding("\x27\x16", 'UTF-8', 'UTF-16BE') . "\033[0m";
-                return;
+                $color = 'fg-red';
+                $buffer = mb_convert_encoding("\x27\x16", 'UTF-8', 'UTF-16BE');
+                break;
             default:
-                echo $progress;
-                return;
+                $color = '';
+                $buffer = $progress;
         }
+
+        if ($this->colors !== true) {
+            echo $buffer;
+        }
+
+        echo parent::formatWithColor($color, $buffer);
     }
 
     /**
@@ -100,5 +115,21 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
     private function fillWithWhitespace($className)
     {
         return str_pad($className, $this->maxClassNameLength);
+    }
+
+    /**
+     * Prints the Class Name if it has changed
+     */
+    protected function printClassName()
+    {
+        if ($this->lastClassName === $this->className) {
+            return;
+        }
+
+        echo PHP_EOL;
+        echo $this->formatClassName($this->className);
+        echo "\t";
+
+        $this->lastClassName = $this->className;
     }
 } 
