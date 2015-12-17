@@ -52,7 +52,7 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
     }
 
     /**
-     * @param string $progress Result of the Test Case => . F S I
+     * @param string $progress Result of the Test Case => . F S I R
      * @throws Exception\InvalidArgumentException
      */
     private function printTestCaseStatus($progress)
@@ -70,6 +70,9 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
                 return;
             case 'S':
                 echo "\033[01;31m" . mb_convert_encoding("\x27\x16", 'UTF-8', 'UTF-16BE') . "\033[0m";
+                return;
+            case 'R':
+                echo "\033[01;31m" . mb_convert_encoding("\x27\x12", 'UTF-8', 'UTF-16BE') . "\033[0m";
                 return;
             default:
                 throw new InvalidArgumentException(sprintf(
