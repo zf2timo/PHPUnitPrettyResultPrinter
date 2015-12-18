@@ -52,7 +52,7 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
     }
 
     /**
-     * @param string $progress Result of the Test Case => . F S I
+     * @param string $progress Result of the Test Case => . F S I R
      * @throws Exception\InvalidArgumentException
      */
     private function printTestCaseStatus($progress)
@@ -65,20 +65,10 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
             case 'F':
                 echo "\033[01;31m" . mb_convert_encoding("\x27\x16", 'UTF-8', 'UTF-16BE') . "\033[0m";
                 return;
-            case 'I':
-                echo "\033[01;31m" . mb_convert_encoding("\x27\x16", 'UTF-8', 'UTF-16BE') . "\033[0m";
-                return;
-            case 'S':
-                echo "\033[01;31m" . mb_convert_encoding("\x27\x16", 'UTF-8', 'UTF-16BE') . "\033[0m";
-                return;
             default:
-                throw new InvalidArgumentException(sprintf(
-                    'Can not print status for "%s" in %s',
-                    $progress,
-                    __METHOD__
-                ));
+                echo $progress;
+                return;
         }
-
     }
 
     /**

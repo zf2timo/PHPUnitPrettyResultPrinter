@@ -59,6 +59,6 @@ class ProductsConsoleControllerImportProductsTest extends \PHPUnit_Framework_Tes
 
     public function test10()
     {
-        $this->markTestIncomplete('Skipped');
+        $this->markTestSkipped('Skipped');
     }
 } 
