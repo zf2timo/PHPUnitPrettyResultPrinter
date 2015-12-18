@@ -44,12 +44,12 @@ class ProductsConsoleControllerImportProductsTest extends \PHPUnit_Framework_Tes
 
     public function test7()
     {
-
+        $error = 15 / 0;
     }
 
     public function test8()
     {
-
+        $this->assertEquals(0, 1);
     }
 
     public function test9()
