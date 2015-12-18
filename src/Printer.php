@@ -13,7 +13,6 @@ use PHPUnit_TextUI_ResultPrinter;
  */
 class Printer extends \PHPUnit_TextUI_ResultPrinter
 {
-
     /**
      * @var string
      */
@@ -41,7 +40,7 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
 
         $this->printClassName();
 
-        $this->printTestCaseStatus($progress);
+        $this->printTestCaseStatus('', $progress);
     }
 
     /**
@@ -49,38 +48,29 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
      */
     protected function writeProgressWithColor($color, $buffer)
     {
-
         if ($this->debug) {
             parent::writeProgressWithColor($color, $buffer);
         }
 
         $this->printClassName();
+        $this->printTestCaseStatus($color, $buffer);
     }
 
-
     /**
-     * @param string $progress Result of the Test Case => . F S I R
-     * @throws Exception\InvalidArgumentException
+     * @param string $color
+     * @param string $buffer Result of the Test Case => . F S I R
      */
-    private function printTestCaseStatus($progress)
+    private function printTestCaseStatus($color, $buffer)
     {
-
-        switch (strtoupper($progress)) {
+        switch (strtoupper($buffer)) {
             case '.':
-                $color = 'fg-green';
+                $color = 'fg-green,bold';
                 $buffer = mb_convert_encoding("\x27\x14", 'UTF-8', 'UTF-16BE');
                 break;
             case 'F':
-                $color = 'fg-red';
+                $color = 'fg-red,bold';
                 $buffer = mb_convert_encoding("\x27\x16", 'UTF-8', 'UTF-16BE');
                 break;
-            default:
-                $color = '';
-                $buffer = $progress;
-        }
-
-        if ($this->colors !== true) {
-            echo $buffer;
         }
 
         echo parent::formatWithColor($color, $buffer);
@@ -93,6 +83,27 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
     {
         $this->className = get_class($test);
         parent::startTest($test);
+    }
+
+    /**
+     * Prints the Class Name if it has changed
+     */
+    protected function printClassName()
+    {
+        if ($this->lastClassName === $this->className) {
+            return;
+        }
+
+        echo PHP_EOL;
+        $className = $this->formatClassName($this->className);
+        if ($this->colors === true) {
+            $this->writeWithColor('fg-cyan,bold', $className, false);
+        } else {
+            $this->write($className);
+        }
+        echo "\t";
+
+        $this->lastClassName = $this->className;
     }
 
     /**
@@ -116,20 +127,4 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
     {
         return str_pad($className, $this->maxClassNameLength);
     }
-
-    /**
-     * Prints the Class Name if it has changed
-     */
-    protected function printClassName()
-    {
-        if ($this->lastClassName === $this->className) {
-            return;
-        }
-
-        echo PHP_EOL;
-        echo $this->formatClassName($this->className);
-        echo "\t";
-
-        $this->lastClassName = $this->className;
-    }
-} 
+}
