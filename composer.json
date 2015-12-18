@@ -3,6 +3,7 @@
     "description": "Prints Result of PHPUnit in a nicer format",
     "minimum-stability": "dev",
     "license": "MIT",
+    "type": "library",
     "autoload": {
         "psr-4": {
             "PrettyResultPrinter\\": "src/"
