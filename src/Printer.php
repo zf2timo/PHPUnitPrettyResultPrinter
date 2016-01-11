@@ -5,7 +5,6 @@ namespace PrettyResultPrinter;
 use PHPUnit_Framework_Test;
 use PHPUnit_TextUI_ResultPrinter;
 
-
 /**
  * Class Printer
  *
@@ -27,6 +26,27 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
      * @var int
      */
     private $maxClassNameLength = 40;
+
+    /**
+     * @var int
+     */
+    private $maxNumberOfColumns;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __construct(
+        $out = null,
+        $verbose = false,
+        $colors = self::COLOR_DEFAULT,
+        $debug = false,
+        $numberOfColumns = 80
+    ) {
+        parent::__construct($out, $verbose, $colors, $debug, $numberOfColumns);
+
+        $this->maxNumberOfColumns = $numberOfColumns;
+        $this->maxClassNameLength = intval($numberOfColumns * 0.6);
+    }
 
     /**
      * {@inheritdoc}
@@ -62,6 +82,13 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
      */
     private function printTestCaseStatus($color, $buffer)
     {
+        if ($this->column == $this->maxNumberOfColumns) {
+            $this->writeNewLine();
+            $padding = $this->maxClassNameLength;
+            $this->column = $padding;
+            echo str_pad(' ', $padding) . "\t";
+        }
+
         switch (strtoupper($buffer)) {
             case '.':
                 $color = 'fg-green,bold';
@@ -74,6 +101,7 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
         }
 
         echo parent::formatWithColor($color, $buffer);
+        $this->column++;
     }
 
     /**
@@ -101,6 +129,7 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
         } else {
             $this->write($className);
         }
+        $this->column += strlen($className) + 4;
         echo "\t";
 
         $this->lastClassName = $this->className;
