@@ -4,8 +4,6 @@ namespace PrettyResultPrinter;
 
 use PHPUnit_Framework_Test;
 use PHPUnit_TextUI_ResultPrinter;
-use PrettyResultPrinter\Exception\InvalidArgumentException;
-
 
 /**
  * Class Printer
@@ -14,7 +12,6 @@ use PrettyResultPrinter\Exception\InvalidArgumentException;
  */
 class Printer extends \PHPUnit_TextUI_ResultPrinter
 {
-
     /**
      * @var string
      */
@@ -31,6 +28,27 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
     private $maxClassNameLength = 40;
 
     /**
+     * @var int
+     */
+    private $maxNumberOfColumns;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __construct(
+        $out = null,
+        $verbose = false,
+        $colors = self::COLOR_DEFAULT,
+        $debug = false,
+        $numberOfColumns = 80
+    ) {
+        parent::__construct($out, $verbose, $colors, $debug, $numberOfColumns);
+
+        $this->maxNumberOfColumns = $numberOfColumns;
+        $this->maxClassNameLength = intval($numberOfColumns * 0.6);
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function writeProgress($progress)
@@ -40,35 +58,50 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
             return;
         }
 
-        if ($this->lastClassName !== $this->className) {
-            echo PHP_EOL;
-            echo $this->formatClassName($this->className);
-            echo "\t";
+        $this->printClassName();
 
-            $this->lastClassName = $this->className;
-        }
-
-        $this->printTestCaseStatus($progress);
+        $this->printTestCaseStatus('', $progress);
     }
 
     /**
-     * @param string $progress Result of the Test Case => . F S I R
-     * @throws Exception\InvalidArgumentException
+     * {@inheritdoc}
      */
-    private function printTestCaseStatus($progress)
+    protected function writeProgressWithColor($color, $buffer)
     {
-
-        switch (strtoupper($progress)) {
-            case '.':
-                echo "\033[01;32m" . mb_convert_encoding("\x27\x14", 'UTF-8', 'UTF-16BE') . "\033[0m";
-                return;
-            case 'F':
-                echo "\033[01;31m" . mb_convert_encoding("\x27\x16", 'UTF-8', 'UTF-16BE') . "\033[0m";
-                return;
-            default:
-                echo $progress;
-                return;
+        if ($this->debug) {
+            parent::writeProgressWithColor($color, $buffer);
         }
+
+        $this->printClassName();
+        $this->printTestCaseStatus($color, $buffer);
+    }
+
+    /**
+     * @param string $color
+     * @param string $buffer Result of the Test Case => . F S I R
+     */
+    private function printTestCaseStatus($color, $buffer)
+    {
+        if ($this->column == $this->maxNumberOfColumns) {
+            $this->writeNewLine();
+            $padding = $this->maxClassNameLength;
+            $this->column = $padding;
+            echo str_pad(' ', $padding) . "\t";
+        }
+
+        switch (strtoupper($buffer)) {
+            case '.':
+                $color = 'fg-green,bold';
+                $buffer = mb_convert_encoding("\x27\x14", 'UTF-8', 'UTF-16BE');
+                break;
+            case 'F':
+                $color = 'fg-red,bold';
+                $buffer = mb_convert_encoding("\x27\x16", 'UTF-8', 'UTF-16BE');
+                break;
+        }
+
+        echo parent::formatWithColor($color, $buffer);
+        $this->column++;
     }
 
     /**
@@ -78,6 +111,28 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
     {
         $this->className = get_class($test);
         parent::startTest($test);
+    }
+
+    /**
+     * Prints the Class Name if it has changed
+     */
+    protected function printClassName()
+    {
+        if ($this->lastClassName === $this->className) {
+            return;
+        }
+
+        echo PHP_EOL;
+        $className = $this->formatClassName($this->className);
+        if ($this->colors === true) {
+            $this->writeWithColor('fg-cyan,bold', $className, false);
+        } else {
+            $this->write($className);
+        }
+        $this->column += strlen($className) + 4;
+        echo "\t";
+
+        $this->lastClassName = $this->className;
     }
 
     /**
@@ -101,4 +156,4 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
     {
         return str_pad($className, $this->maxClassNameLength);
     }
-} 
+}
