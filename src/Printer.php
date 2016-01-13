@@ -89,6 +89,12 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
             echo str_pad(' ', $padding) . "\t";
         }
 
+        if ($this->colors === false) {
+            echo $buffer;
+            $this->column++;
+            return;
+        }
+
         switch (strtoupper($buffer)) {
             case '.':
                 $color = 'fg-green,bold';
