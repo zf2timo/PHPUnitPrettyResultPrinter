@@ -44,8 +44,6 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
     ) {
         parent::__construct($out, $verbose, $colors, $debug, $numberOfColumns);
 
-        var_export($_SERVER);
-
         $this->maxNumberOfColumns = $numberOfColumns;
         $this->maxClassNameLength = intval($numberOfColumns * 0.6);
     }
