@@ -89,12 +89,6 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
             echo str_pad(' ', $padding) . "\t";
         }
 
-        if ($this->isCIEnvironment()) {
-            echo $buffer;
-            $this->column++;
-            return;
-        }
-
         switch (strtoupper($buffer)) {
             case '.':
                 $color = 'fg-green,bold';
@@ -161,24 +155,5 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
     private function fillWithWhitespace($className)
     {
         return str_pad($className, $this->maxClassNameLength);
-    }
-
-    /**
-     * Detects if PHPUnit is executed in a CI Environment - in this case the UTF-8 Symbols are
-     * deactivated because they are not correct displayed in the report.
-     *
-     * At the moment only travis is support and when its manually disabled
-     *
-     * @return bool
-     */
-    private function isCIEnvironment()
-    {
-        if (isset($_SERVER['USER']) && $_SERVER['USER'] === 'travis') {
-            return true;
-        } elseif (isset($_SERVER['PHP_CI']) && $_SERVER['PHP_CI'] === 'true') {
-            return true;
-        }
-
-        return false;
     }
 }
