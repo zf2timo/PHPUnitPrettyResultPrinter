@@ -16,3 +16,11 @@ To activate the Printer for PHPUnit, just add it to your configuration XML:
  // ....
 </phpunit>
 ```
+# Configuration
+
+In some Environments like Travis, Jenkins or some old Bash Console the UTF-8 Characters ✘ and ✔ are not supported.
+You can enable the default PHPUnit symbols by exporting an environment variable:
+ ```bash
+ $ export PHP_CI=true
+ $ php vendor/bin/phpunit
+ ```
