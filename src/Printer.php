@@ -4,6 +4,7 @@ namespace PrettyResultPrinter;
 
 use PHPUnit_Framework_Test;
 use PHPUnit_TextUI_ResultPrinter;
+use SebastianBergmann\Environment\Console;
 
 /**
  * Class Printer
@@ -45,6 +46,11 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
         parent::__construct($out, $verbose, $colors, $debug, $numberOfColumns);
 
         $this->maxNumberOfColumns = $numberOfColumns;
+        if ($numberOfColumns === 'max') {
+            $console = new Console();
+            $numberOfColumns = $console->getNumberOfColumns();
+        }
+
         $this->maxClassNameLength = intval($numberOfColumns * 0.6);
     }
 
