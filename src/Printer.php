@@ -173,9 +173,7 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
      */
     private function isCIEnvironment()
     {
-        if (isset($_SERVER['USER']) && $_SERVER['USER'] === 'travis') {
-            return true;
-        } elseif (isset($_SERVER['PHP_CI']) && $_SERVER['PHP_CI'] === 'true') {
+        if (isset($_SERVER['PHP_CI']) && $_SERVER['PHP_CI'] === 'true') {
             return true;
         }
 
