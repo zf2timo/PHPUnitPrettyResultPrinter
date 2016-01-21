@@ -16,7 +16,7 @@ PHPUnit_TextUI_Command::main();
 PHPUnit %s by Sebastian Bergmann and contributors.
 
 
-PrettyResultPrinterTest\ChildNamespace\GrandChildNamespace\SubNamespace\PrinterTest	✔✖IS
+...ace\GrandChildNamespace\SubNamespace\PrinterTest	✔✖IS
 
 Time: %s, Memory: %s
 
