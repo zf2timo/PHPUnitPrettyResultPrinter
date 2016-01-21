@@ -20,12 +20,6 @@ install:
     - travis_retry composer install --no-interaction
     - composer info -i
 
-script:
-  - if [[ $EXECUTE_TEST_COVERALLS == 'true' ]]; then composer test-coverage ; fi
-  - if [[ $EXECUTE_TEST_COVERALLS != 'true' ]]; then composer test ; fi
-  - if [[ $EXECUTE_CS_CHECK == 'true' ]]; then composer cs ; fi
-  - if [[ $EXECUTE_DOC_CHECK == 'true' ]]; then make mkdocs ; diff mkdocs.yml mkdocs.yml.orig ; return $? ; fi
-
 script: 
   - phpunit
   - if [[ $EXECUTE_CS_CHECK == 'true' ]]; ./vendor/bin/phpcs -n --standard=PSR2 ./src ./tests ; fi
