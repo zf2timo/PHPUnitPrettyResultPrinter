@@ -24,4 +24,4 @@ class PrinterTest extends \PHPUnit_Framework_TestCase
     {
         $this->markTestSkipped('Test Stub is Skipped');
     }
-} 
+}
