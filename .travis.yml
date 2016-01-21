@@ -28,7 +28,7 @@ script:
 
 script: 
   - phpunit
-  - if [[ $EXECUTE_CS_CHECK == 'true' ]]; php vendor/bin/phpcs -n --standard=PSR2 ./src ./tests ; fi
+  - if [[ $EXECUTE_CS_CHECK == 'true' ]]; ./vendor/bin/phpcs -n --standard=PSR2 ./src ./tests ; fi
 
 notifications:
   email: true
