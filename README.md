@@ -2,6 +2,11 @@
 
 This Result Printer for PHPUnit shows more information in a more readable format during a test run
 
+Branch  | Status
+------- | ------
+master  | [![Build Status](https://travis-ci.org/zf2timo/PHPUnitPrettyResultPrinter.svg?branch=master)](https://travis-ci.org/zf2timo/PHPUnitPrettyResultPrinter)
+develop  | [![Build Status](https://travis-ci.org/zf2timo/PHPUnitPrettyResultPrinter.svg?branch=develop)](https://travis-ci.org/zf2timo/PHPUnitPrettyResultPrinter)
+
 # Installation
 
 Installation is provided via composer and can be done with the following command:
@@ -16,3 +21,11 @@ To activate the Printer for PHPUnit, just add it to your configuration XML:
  // ....
 </phpunit>
 ```
+# Configuration
+
+In some Environments like Travis, Jenkins or some old Bash Console the UTF-8 Characters ✘ and ✔ are not supported.
+You can enable the default PHPUnit symbols by exporting an environment variable:
+ ```bash
+ $ export PHP_CI=true
+ $ php vendor/bin/phpunit
+ ```
