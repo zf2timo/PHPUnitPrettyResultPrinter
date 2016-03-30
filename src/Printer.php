@@ -88,7 +88,7 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
      */
     private function printTestCaseStatus($color, $buffer)
     {
-        if ($this->column == $this->maxNumberOfColumns) {
+        if ($this->column >= $this->maxNumberOfColumns) {
             $this->writeNewLine();
             $padding = $this->maxClassNameLength;
             $this->column = $padding;
@@ -141,7 +141,7 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
         } else {
             $this->write($className);
         }
-        $this->column += strlen($className) + 4;
+        $this->column = strlen($className) + 4;
         echo "\t";
 
         $this->lastClassName = $this->className;
