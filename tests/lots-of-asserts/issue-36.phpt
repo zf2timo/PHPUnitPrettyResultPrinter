@@ -1,5 +1,6 @@
 --TEST--
-php vendor/bin/phpunit -c phpunit.xml
+php vendor/bin/phpunit -c phpunit.xml __files/
+UnitTest for Issue #36
 --FILE--
 <?php
 $_SERVER['TERM']    = 'linux';
