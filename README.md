@@ -2,10 +2,10 @@
 
 This Result Printer for PHPUnit shows more information in a more readable format during a test run
 
-Branch  | Status
-------- | ------
-master  | [![Build Status](https://travis-ci.org/zf2timo/PHPUnitPrettyResultPrinter.svg?branch=master)](https://travis-ci.org/zf2timo/PHPUnitPrettyResultPrinter)
-develop  | [![Build Status](https://travis-ci.org/zf2timo/PHPUnitPrettyResultPrinter.svg?branch=develop)](https://travis-ci.org/zf2timo/PHPUnitPrettyResultPrinter)
+Branch  | Status|Dependency Status
+------- | ------|------------
+master  | [![Build Status](https://travis-ci.org/zf2timo/PHPUnitPrettyResultPrinter.svg?branch=master)](https://travis-ci.org/zf2timo/PHPUnitPrettyResultPrinter)|[![Dependency Status](https://www.versioneye.com/user/projects/57023edffcd19a0039f1564e/badge.svg?style=flat)](https://www.versioneye.com/user/projects/57023edffcd19a0039f1564e)
+develop  | [![Build Status](https://travis-ci.org/zf2timo/PHPUnitPrettyResultPrinter.svg?branch=develop)](https://travis-ci.org/zf2timo/PHPUnitPrettyResultPrinter)|[![Dependency Status](https://www.versioneye.com/user/projects/57023edbfcd19a004543f820/badge.svg?style=flat)](https://www.versioneye.com/user/projects/57023edbfcd19a004543f820)
 
 # Preview
 
