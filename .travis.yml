@@ -15,33 +15,23 @@ env:
 matrix:
   include:
     - php: 7
-      env:
-        - DEPS=lowest
+      env: DEPS=lowest
     - php: 7
-      env:
-        - DEPS=locked
-        - CS_CHECK=true
+      env: DEPS=locked CS_CHECK=true
     - php: 7
-      env:
-        - DEPS=latest
+      env: DEPS=latest
     - php: 7.1
-      env:
-        - DEPS=lowest
+      env: DEPS=lowest
     - php: 7.1
-      env:
-        - DEPS=locked
+      env: DEPS=locked
     - php: 7.1
-      env:
-        - DEPS=latest
+      env: DEPS=latest
     - php: nightly
-      env:
-        - DEPS=lowest
+      env: DEPS=lowest
     - php: nightly
-      env:
-        - DEPS=locked
+      env: DEPS=locked
     - php: nightly
-      env:
-        - DEPS=latest
+      env: DEPS=latest
   allow_failures:
     - php: nightly
 
