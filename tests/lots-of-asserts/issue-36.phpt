@@ -10,7 +10,7 @@ $_SERVER['argv'][3] = dirname(__FILE__) . '/__files/';
 
 require_once dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
 
-PHPUnit_TextUI_Command::main();
+\PHPUnit\TextUI\Command::main();
 --EXPECTF--
 PHPUnit %s by Sebastian Bergmann and contributors.
 
@@ -20,6 +20,6 @@ PrettyResultPrinterTest\PrinterTest             	✔✔✔✔✔✔✔✔✔✔�
 PrettyResultPrinterTest\SecondPrinterTest       	✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔
                                                 	✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔
 
-Time: %s ms, Memory: %sMb
+Time: %s ms, Memory: %sMB
 
 OK (102 tests, 102 assertions)
