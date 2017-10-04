@@ -46,7 +46,7 @@ install:
   - COLUMNS=120 composer show
 
 script:
-  - if [[ $CS_CHECK == 'true' ]]; then /vendor/bin/phpcs -n --standard=PSR2 ./src ./test ; fi
+  - if [[ $CS_CHECK == 'true' ]]; then php vendor/bin/phpcs -n --standard=PSR2 ./src ./test ; fi
   - phpunit
 
 notifications:
