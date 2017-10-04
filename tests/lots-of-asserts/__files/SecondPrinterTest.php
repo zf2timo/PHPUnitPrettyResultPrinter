@@ -2,7 +2,7 @@
 
 namespace PrettyResultPrinterTest;
 
-class SecondPrinterTest extends \PHPUnit_Framework_TestCase
+class SecondPrinterTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testTestCaseNameIsDisplayed()
