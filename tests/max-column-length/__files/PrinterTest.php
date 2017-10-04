@@ -2,7 +2,9 @@
 
 namespace PrettyResultPrinterTest\ChildNamespace\GrandChildNamespace\SubNamespace;
 
-class PrinterTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class PrinterTest extends TestCase
 {
 
     public function testTestCaseNameIsDisplayed()
