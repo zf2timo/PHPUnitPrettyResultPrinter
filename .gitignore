@@ -6,4 +6,3 @@
 .idea_modules/
 composer.phar
 vendor/
-composer.lock
