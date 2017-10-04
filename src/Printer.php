@@ -1,9 +1,9 @@
 <?php
 
-namespace PrettyResultPrinter;
+namespace zf2timo\PrettyResultPrinter;
 
-use PHPUnit_Framework_Test;
-use PHPUnit_TextUI_ResultPrinter;
+use PHPUnit\Framework\Test;
+use PHPUnit\TextUI\ResultPrinter;
 use SebastianBergmann\Environment\Console;
 
 /**
@@ -11,7 +11,7 @@ use SebastianBergmann\Environment\Console;
  *
  * @license MIT
  */
-class Printer extends \PHPUnit_TextUI_ResultPrinter
+class Printer extends ResultPrinter
 {
     /**
      * @var string
@@ -119,7 +119,7 @@ class Printer extends \PHPUnit_TextUI_ResultPrinter
     /**
      * {@inheritdoc}
      */
-    public function startTest(PHPUnit_Framework_Test $test)
+    public function startTest(Test $test)
     {
         $this->className = get_class($test);
         parent::startTest($test);
