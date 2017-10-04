@@ -21,7 +21,7 @@ $ composer require --dev zf2timo/phpunit-pretty-result-printer:^1.0
 To activate the Printer for PHPUnit, just add it to your configuration XML:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit printerClass="PrettyResultPrinter\Printer">
+<phpunit printerClass="zf2timo\PrettyResultPrinter\Printer">
  // ....
 </phpunit>
 ```
