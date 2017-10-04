@@ -1,6 +1,6 @@
 <?php
 
-namespace PrettyResultPrinter;
+namespace zf2timo\PrettyResultPrinter;
 
 use PHPUnit\Framework\Test;
 use PHPUnit\TextUI\ResultPrinter;

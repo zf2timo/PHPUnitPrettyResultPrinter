@@ -5,7 +5,7 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          printerFile="src/Printer.php"
-         printerClass="PrettyResultPrinter\Printer"
+         printerClass="zf2timo\PrettyResultPrinter\Printer"
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="false"

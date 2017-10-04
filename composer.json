@@ -6,7 +6,7 @@
     "type": "library",
     "autoload": {
         "psr-4": {
-            "PrettyResultPrinter\\": "src/"
+            "zf2timo\\PrettyResultPrinter\\": "src/"
         }
     },
     "require": {
