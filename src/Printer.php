@@ -57,7 +57,7 @@ class Printer extends ResultPrinter
     /**
      * {@inheritdoc}
      */
-    protected function writeProgress($progress)
+    protected function writeProgress($progress) :void
     {
         if ($this->debug) {
             parent::writeProgress($progress);
@@ -72,7 +72,7 @@ class Printer extends ResultPrinter
     /**
      * {@inheritdoc}
      */
-    protected function writeProgressWithColor($color, $buffer)
+    protected function writeProgressWithColor($color, $buffer): void
     {
         if ($this->debug) {
             parent::writeProgressWithColor($color, $buffer);
@@ -112,14 +112,14 @@ class Printer extends ResultPrinter
                 break;
         }
 
-        echo parent::formatWithColor($color, $buffer);
+        $this->writeWithColor($color, $buffer);
         $this->column++;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function startTest(Test $test)
+    public function startTest(Test $test): void
     {
         $this->className = get_class($test);
         parent::startTest($test);
@@ -184,5 +184,18 @@ class Printer extends ResultPrinter
         }
 
         return false;
+    }
+
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function writeWithColor(string $color, string $buffer, bool $lf = true): void
+    {
+        $this->write($this->colorizeTextBox($color, $buffer));
+
+        if ($lf) {
+            $this->write(\PHP_EOL);
+        }
     }
 }
